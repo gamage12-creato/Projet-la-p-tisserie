@@ -1,0 +1,71 @@
+.admin-container {
+  max-width: 900px;
+  margin: 20vh auto;  
+  padding: 30px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  color: black;
+
+  h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .add-button {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: white;
+    background: #3498db;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-bottom: 20px;
+
+    &:hover {
+      background: #2980b9;
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    text-align: left;
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      font-weight: bold;
+    }
+
+    td img {
+      width: 100px;
+      height: auto;
+      border-radius: 5px;
+    }
+  }
+
+  .delete-button {
+    background: #e74c3c;
+    color: white;
+    &:hover {
+      background: #c0392b;
+    }
+  }
+
+  .edit-button {
+    background: #3498db;
+    color: white;
+    &:hover {
+      background: #2980b9;
+    }
+  }
+}
