@@ -1,16 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { apiSlice } from "./slices/api";
-import gameReducer from "./slices/gameSlice";
-import userReducer from "./slices/userSlice";
+import { gameSlice } from "./slices/gameSlice";
+import { crudSlice } from "./slices/crudSlice";
+import { userSlice } from "./slices/userSlice";
+
 
 export const store = configureStore({
   reducer: {
-    game: gameReducer,
-    user: userReducer,
-    [apiSlice.reducerPath]: apiSlice.reducer, 
+    [gameSlice.reducerPath]: gameSlice.reducer, 
+    [crudSlice.reducerPath]: crudSlice.reducer, 
+    [userSlice.reducerPath]: userSlice.reducer
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware),
+    getDefaultMiddleware()
+    .concat(gameSlice.middleware)
+    .concat(crudSlice.middleware)
+    .concat(userSlice.middleware),
 });
 
 export default store;
