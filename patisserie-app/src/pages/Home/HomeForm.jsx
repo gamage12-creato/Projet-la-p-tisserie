@@ -1,40 +1,38 @@
-import { useNavigate } from 'react-router-dom';
-import './Home.scss';
-
-import brioche from '../../assets/patisserie/brioche.png';
-import cakeFramboise from '../../assets/patisserie/cake_framboise.png';
-import fondantChocolat from '../../assets/patisserie/fondant_chocolat.png';
-import fondantSupreme from '../../assets/patisserie/fondant_supreme.png';
-import eclair from '../../assets/patisserie/eclair.png';
+import { useNavigate } from "react-router-dom";
+import { useGetPastriesQuery } from "../../store/slices/gameSlice";
+import "./Home.scss";
 
 const HomeForm = () => {
-
   const navigate = useNavigate();
-
-  const lots = [
-    { name: "Brioche sucrée avec chocolat", quantity: 5, image: brioche },
-    { name: "Cake Framboise chocolat", quantity: 5, image: cakeFramboise },
-    { name: "Cake glacé fondant au chocolat", quantity: 10, image: fondantChocolat },
-    { name: "Fondant suprême", quantity: 6, image: fondantSupreme },
-    { name: "Éclairs au chocolat", quantity: 2, image: eclair },
-  ];
+  
+  const { data: lots , isLoading, isError } = useGetPastriesQuery();
 
   return (
     <div className="home">
       <h2>Jouez à notre jeu de Yam's pour tenter de remporter des lots !</h2>
-      <button className="play-button" onClick={() => navigate('/jeu')}>
+      <button className="play-button" onClick={() => navigate("/jeu")}>
         Jouer
       </button>
 
       <h3>Lots restants :</h3>
-      <div className="lots-container">
-        {lots.map((lot, index) => (
-          <div key={index} className="lot">
-            <img src={lot.image} alt={lot.name} />
-            <p>{lot.name} : <strong>{lot.quantity}</strong></p>
-          </div>
-        ))}
-      </div>
+
+      {isLoading && <p>Chargement des pâtisseries...</p>}
+      {isError && <p>Erreur lors du chargement des lots.</p>}
+
+      {!isLoading && !isError && lots  && (
+        <div className="lots-container">
+          {lots.length > 0 ? (
+            lots.map((pastry) => (
+              <div key={pastry.id} className="lot">
+                <img src={pastry.image} alt={pastry.name} />
+                <p>{pastry.name} : <strong>{pastry.quantity}</strong></p>
+              </div>
+            ))
+          ) : (
+            <p>Aucun lot disponible pour le moment.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 };
