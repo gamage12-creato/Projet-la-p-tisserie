@@ -22,6 +22,7 @@ function App() {
           <Route path="/contact" element={<ContactForm />} />
           <Route path="/admin" element={<AdminForm />} />
           <Route path="/add" element={<AddForm />} />
+          <Route path="/add/:id?" element={<AddForm />} />
           <Route path="*" element={<div>404 not found</div>} />
         </Routes>
       </main>

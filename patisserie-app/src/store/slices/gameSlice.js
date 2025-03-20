@@ -4,7 +4,8 @@ export const gameSlice = createApi({
   reducerPath: 'gameSlice',
   tagTypes: ["GameSlice"],
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/game' }),
-  endpoints: (builder) => ({
+  endpoints: (builder) => {
+    return{
     // Récupère la liste complète des pâtisseries.
     getPastries: builder.query({
       query: () => '/pastries',
@@ -23,7 +24,7 @@ export const gameSlice = createApi({
       query: (quantity) => `/win-pastries/${quantity}`,
       providesTags: ['GameSlice'],
     }),
-  }),
+  }},
 });
 
 export const { 

@@ -61,7 +61,7 @@ const AdminForm = () => {
               <td>{pastry.quantity}</td>
               <td>
                 <button onClick={() => handleDelete(pastry.id)}>Supprimer</button>
-                <button >Modifier</button>
+                <button onClick={() => navigate(`/add/${pastry.id}`)}>Modifier</button>
               </td>
             </tr>
           ))}
