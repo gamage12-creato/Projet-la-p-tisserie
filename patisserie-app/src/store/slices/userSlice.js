@@ -7,7 +7,8 @@ export const userSlice = createApi({
         baseUrl: "http://localhost:3001", 
         credentials: "include", 
 	}),
-	endpoints: (builder) => ({
+	endpoints: (builder) => {
+        return{
     // Permet de vérifier l'email et le mot de 
     // passe de l'utilisateur pour l'authentifier.
         login: builder.mutation({
@@ -35,7 +36,7 @@ export const userSlice = createApi({
             credentials: 'include',
             providesTags: ['UserSlice'],
         }),
-    }),
+    }},
 });
 
 export const { 

@@ -3,16 +3,19 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const crudSlice = createApi({
   reducerPath: 'crudSlice',
   tagTypes: ["CrudSlice"],
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/api' }),
-  endpoints: (builder) => ({
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/api', credentials: "include",  }),
+  endpoints: (builder) => {
+    return{
     // Récupère la liste de toutes les pâtisseries.
     getAllPastries: builder.query({
       query: () => '/pastries',
+      credentials: 'include',
       providesTags: ['CrudSlice'],
     }),
     // Récupère une pâtisserie en fonction de son ID.
     getPastrieById: builder.query({
       query: (id) => `/pastrie/${id}`,
+      credentials: 'include',
       providesTags: ['CrudSlice'],
     }),
     // Recherche une pâtisserie en fonction d'un mot-clé.
@@ -25,7 +28,8 @@ export const crudSlice = createApi({
       query: (newPastrie) => ({
         url: '/pastrie',
         method: 'POST',
-        body: newPastrie,
+        body: newPastrie,        
+        credentials: 'include',
       }),
       invalidatesTags: ['CrudSlice'],
     }),
@@ -35,6 +39,7 @@ export const crudSlice = createApi({
         url: `/pastrie/${id}`,
         method: 'PUT',
         body: updates,
+        credentials: 'include',
       }),
       invalidatesTags: ['CrudSlice'],
     }),
@@ -43,10 +48,11 @@ export const crudSlice = createApi({
       query: (id) => ({
         url: `/pastrie/${id}`,
         method: 'DELETE',
+        credentials: 'include',
       }),
       invalidatesTags: ['CrudSlice'],
     }),
-  }),
+  }},
 });
 
 export const { 

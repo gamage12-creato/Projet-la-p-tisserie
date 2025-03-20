@@ -1,6 +1,6 @@
 .form-container {
-  max-width: 900px;  
-  margin: 20vh auto; 
+  max-width: 900px;
+  margin: 20vh auto;
   padding: 30px;
   background: white;
   border-radius: 8px;
@@ -27,45 +27,30 @@
     margin-top: 15px;
   }
 
-  input {
+  input, select {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background: white; // Correction : fond blanc
-    color: black; // Texte noir
+    background: white;
+    color: black;
   }
 
   .buttons {
     display: flex;
-    justify-content: flex-start;
     gap: 10px;
     margin-top: 20px;
   }
 
-  .cancel-button {
+  button {
     padding: 10px 15px;
-    background: #3498db;
-    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
-
-    &:hover {
-      background: #2980b9;
-    }
-  }
-
-  .submit-button {
-    padding: 10px 15px;
-    background: #3498db;
     color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
+    background: #3498db;
 
     &:hover {
       background: #2980b9;

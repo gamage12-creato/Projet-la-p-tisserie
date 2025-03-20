@@ -14,7 +14,7 @@
     margin-bottom: 20px;
   }
 
-  .add-button {
+  button{
     padding: 10px 15px;
     font-size: 16px;
     color: white;
@@ -50,22 +50,6 @@
       width: 100px;
       height: auto;
       border-radius: 5px;
-    }
-  }
-
-  .delete-button {
-    background: #e74c3c;
-    color: white;
-    &:hover {
-      background: #c0392b;
-    }
-  }
-
-  .edit-button {
-    background: #3498db;
-    color: white;
-    &:hover {
-      background: #2980b9;
     }
   }
 }

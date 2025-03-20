@@ -1,26 +1,45 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useGetAllPastriesQuery, useDeletePastrieMutation } from "../../../store/slices/crudSlice";
+import { useGetUserQuery } from "../../../store/slices/userSlice";
 import "./AdminForm.scss";
-import brioche from "../../../assets/patisserie/brioche.png";
-import cakeFramboise from "../../../assets/patisserie/cake_framboise.png";
-import fondantChocolat from "../../../assets/patisserie/fondant_chocolat.png";
-import fondantSupreme from "../../../assets/patisserie/fondant_supreme.png";
-import eclair from "../../../assets/patisserie/eclair.png";
 
 const AdminForm = () => {
   const navigate = useNavigate();
+  const { data: user, isSuccess: isUserLoaded } = useGetUserQuery();
+  const { data: pastries, isLoading, isError, refetch } = useGetAllPastriesQuery();
+  const [deletePastrie] = useDeletePastrieMutation();
 
-  const pastries = [
-    { image: brioche, name: "Brioche sucrée avec chocolat", quantity: 5 },
-    { image: cakeFramboise, name: "Cake Framboise chocolat", quantity: 5 },
-    { image: fondantChocolat, name: "Cake glacé fondant au chocolat", quantity: 10 },
-    { image: fondantSupreme, name: "Fondant suprême au chocolat", quantity: 8 },
-    { image: eclair, name: "Éclair au chocolat", quantity: 7 },
-  ];
+  useEffect(() => {
+    if (isUserLoaded && !user) {
+      navigate("/admin");
+    }
+  }, [isUserLoaded, user, navigate]);
+
+  const handleDelete = async (id) => {
+    if (!user) {
+      alert("Vous devez être connecté pour supprimer une pâtisserie.");
+      navigate("/admin");
+      return;
+    }
+
+    try {
+      await deletePastrie(id).unwrap();
+      refetch();
+    } catch (error) {
+      console.error("Erreur lors de la suppression :", error);
+      alert("Échec de la suppression de la pâtisserie.");
+    }
+  };
+
+  if (!isUserLoaded) return <p>Chargement des informations utilisateur...</p>;
+  if (isLoading) return <p>Chargement des pâtisseries...</p>;
+  if (isError) return <p>Erreur lors du chargement des pâtisseries.</p>;
 
   return (
     <div className="admin-container">
       <h2>Administration</h2>
-      <button className="add-button" onClick={() => navigate("/add")}>
+      <button onClick={() => navigate("/add")}>
         Ajouter une pâtisserie
       </button>
       <table>
@@ -28,21 +47,21 @@ const AdminForm = () => {
           <tr>
             <th>Image</th>
             <th>Nom</th>
-            <th>Quantités restantes</th>
+            <th>Quantité restante</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {pastries.map((pastry, index) => (
-            <tr key={index}>
+          {pastries.map((pastry) => (
+            <tr key={pastry.id}>
               <td>
                 <img src={pastry.image} alt={pastry.name} />
               </td>
               <td>{pastry.name}</td>
               <td>{pastry.quantity}</td>
               <td>
-                <button className="delete-button">Supprimer</button>
-                <button className="edit-button">Modifier</button>
+                <button onClick={() => handleDelete(pastry.id)}>Supprimer</button>
+                <button >Modifier</button>
               </td>
             </tr>
           ))}
